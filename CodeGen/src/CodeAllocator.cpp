@@ -104,6 +104,8 @@ static void flushInstructionCache(uint8_t* mem, size_t size)
 {
 #ifdef __APPLE__
     sys_icache_invalidate(mem, size);
+#elif EMSCRIPTEN
+    #warning "__builtin__clear_cache not supported in emscripten"
 #else
     __builtin___clear_cache((char*)mem, (char*)mem + size);
 #endif
